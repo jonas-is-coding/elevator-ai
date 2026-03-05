@@ -44,7 +44,7 @@ class ElevatorEnv(gym.Env):
 
         return np.array(obs, dtype=np.float32)
 
-    def reset(self):
+    def reset(self, seed=None, options=None):
         self.building = Building(20, 4)
         self.current_step = 0
         self.seconds_counter = 0
@@ -89,8 +89,10 @@ class ElevatorEnv(gym.Env):
 
         reward = 0
 
+        reward = 0
         if len(waiting_times) > 0:
-            reward = -(sum(waiting_times) / len(waiting_times))
+            avg_wait = sum(waiting_times) / len(waiting_times)
+            reward = -min(avg_wait, 100) / 100  # zwischen -1 und 0
 
         observation = self._get_observation()
 
