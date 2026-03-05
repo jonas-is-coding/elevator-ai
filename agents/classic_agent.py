@@ -8,7 +8,7 @@ def scan_action(building):
             free_elevators = [e for e in building.elevators if e.number not in assigned_elevators]
 
             if not free_elevators:
-                break  # alle Aufzüge sind vergeben
+                break
 
             closest = min(free_elevators, key=lambda e: abs(e.currentFloor - floor.number))
             assigned_elevators.add(closest.number)  # als vergeben markieren
