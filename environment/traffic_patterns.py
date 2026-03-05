@@ -1,6 +1,6 @@
 import random
 
-def spawn_passengers(building, time_of_day, probability = 0.3):
+def spawn_passengers(building, time_of_day, probability):
 
     morning = time_of_day > 6 and time_of_day < 10
     evening = time_of_day > 16 and time_of_day < 20
@@ -12,11 +12,11 @@ def spawn_passengers(building, time_of_day, probability = 0.3):
         if morning:
             going_up = random.random() < 0.8
             if floor.number == 0:
-                floor_probability = 0.8
+                floor_probability = probability * 3  # 3x mehr als normal
         elif evening:
             going_up = random.random() > 0.8
             if floor.number > 0:
-                floor_probability = 0.4
+                floor_probability = probability * 2  # 2x mehr als normal
 
         if random.random() < floor_probability:
             if floor.number == len(building.floors) - 1:

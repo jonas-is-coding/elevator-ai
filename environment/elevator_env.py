@@ -1,8 +1,8 @@
 import numpy as np
 import gymnasium as gym
-from building import Building
-from building import Moving
-from traffic_patterns import spawn_passengers
+from environment.building import Building
+from environment.building import Moving
+from environment.traffic_patterns import (spawn_passengers)
 
 action_map = {
     0: Moving.idle,
@@ -63,7 +63,8 @@ class ElevatorEnv(gym.Env):
         if self.time_of_day == 24:
             self.time_of_day = 0
 
-        spawn_passengers(self.building, self.time_of_day)
+        # statt 0.3 pro Step pro Floor:
+        spawn_passengers(self.building, self.time_of_day, probability=0.001)
 
         for i, elevator in enumerate(self.building.elevators):
             elevator.moving = action_map[action[i]]
@@ -93,7 +94,7 @@ class ElevatorEnv(gym.Env):
 
         observation = self._get_observation()
 
-        terminated = not any(
+        terminated = self.current_step > 100 and not any(
             floor.waitingUp or floor.waitingDown
             for floor in self.building.floors
         )
