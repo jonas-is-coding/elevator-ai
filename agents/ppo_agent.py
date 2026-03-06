@@ -5,6 +5,6 @@ def create_model(env):
         "MlpPolicy",
         env,
         verbose=1,
-        learning_rate=0.0003,  # Hyperparameter hier zentral
-        n_steps=2048,
+        ent_coef=0.05,
+        learning_rate=0.0001,
     )

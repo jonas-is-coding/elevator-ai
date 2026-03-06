@@ -10,9 +10,11 @@ def spawn_passengers(building, time_of_day, probability):
         floor_probability = probability
 
         if morning:
-            going_up = random.random() < 0.8
             if floor.number == 0:
-                floor_probability = probability * 3  # 3x mehr als normal
+                going_up = True  # alle vom Erdgeschoss fahren hoch
+                floor_probability = probability * 3
+            else:
+                floor_probability = probability * 0.3  # obere Stockwerke fast leer morgens
         elif evening:
             going_up = random.random() > 0.8
             if floor.number > 0:

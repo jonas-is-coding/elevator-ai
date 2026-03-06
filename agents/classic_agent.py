@@ -2,6 +2,16 @@ def scan_action(building):
     actions = {e.number: 0 for e in building.elevators}
     assigned_elevators = set()  # merkt sich welche Aufzüge schon vergeben sind
 
+    for elevator in building.elevators:
+        if elevator.targetFloors:
+            # fahr zum nächsten Ziel
+            next_target = elevator.targetFloors[0]
+            if elevator.currentFloor < next_target:
+                actions[elevator.number] = 1
+            elif elevator.currentFloor > next_target:
+                actions[elevator.number] = 2
+            assigned_elevators.add(elevator.number)  # nicht neu zuweisen!
+
     for floor in building.floors:
         if floor.waitingUp or floor.waitingDown:
             # nur noch freie Aufzüge berücksichtigen

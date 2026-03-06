@@ -1,9 +1,12 @@
 import sys
 sys.path.insert(0, '..')
 
+from stable_baselines3 import PPO
 from environment.elevator_env import ElevatorEnv
-from agents.classic_agent import scan_action
 
+print("Lade Modell")
+model = PPO.load("../training/models/ppo_elevator.zip")
+print("Modell geladen")
 total_rewards = []
 all_pickups = []
 all_dropoffs = []
@@ -19,7 +22,7 @@ for run in range(1000):
     total_wait = 0
 
     while True:
-        action = scan_action(env.building)
+        action, _ = model.predict(obs, deterministic=True)
         obs, reward, _, truncated, info = env.step(action)
         episode_reward += reward
         steps += 1
@@ -35,7 +38,8 @@ for run in range(1000):
     all_pickups.append(total_pickups)
     all_dropoffs.append(total_dropoffs)
     all_waits.append(total_wait / steps)
-    print(f"Run {run + 1} | Reward: {episode_reward / steps:.2f} | Pickups: {total_pickups} | Dropoffs: {total_dropoffs} | Avg Wait: {total_wait / steps:.2f}")
+
+    print(f"Run {run + 1} | Reward: {episode_reward / steps:.2f}| Pickups: {total_pickups} | Dropoffs: {total_dropoffs} | Avg Wait: {total_wait / steps:.2f}")
 
 print(f"\n--- Average over 1000 Runs ---")
 print(f"Mean Avg Reward:  {sum(total_rewards) / len(total_rewards):.2f}")
