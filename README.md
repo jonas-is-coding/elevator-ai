@@ -77,7 +77,7 @@ python test_ppo.py
 
 ## Reinforcement Learning for Elevator Dispatch: A Comparative Study of PPO Against Classical Destination Dispatching
 
-**Jonas Brahmst** · Independent Research Project · 2025
+**Jonas Brahmst** · [jonasbrahmst@gmail.com](mailto:jonasbrahmst@gmail.com) · Independent Research Project · 2025
 
 ---
 
