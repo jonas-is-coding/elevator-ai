@@ -276,7 +276,7 @@ Reported metrics:
 - **Mean Dropoffs:** total completed passenger journeys per episode
 - **Mean Avg Wait:** mean of per-step average wait times across episode
 
-The PPO agent was evaluated with `deterministic=False`. This is appropriate because the agent was trained with a stochastic policy (`ent_coef=0.05`). A stochastic policy also has practical merit in real deployment — slight randomness prevents the system from becoming exploitable by deterministic passenger behavior patterns.
+The PPO agent was evaluated with `deterministic=True` — the agent always selects its highest-confidence action, making results fully reproducible and directly comparable to the deterministic classical baseline.
 
 ---
 
@@ -314,6 +314,7 @@ The near-equal pickup and dropoff counts for the classical agent (2,664 vs 2,664
 #### 8.2 Future Work
 
 - Realistic elevator kinematics (acceleration, door cycles, dwell time) — *in progress*
+- Smarter classical baseline: persistent elevator assignments, look-ahead priority based on wait time, and zone-based load balancing — a stronger baseline makes the comparison more meaningful
 - FastAPI inference server for real-time dispatch
 - Next.js frontend for live visualization
 - Elevator capacity constraints
