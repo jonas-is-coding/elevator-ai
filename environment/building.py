@@ -11,6 +11,7 @@ class Elevator:
         self.moving = moving
         self.currentFloor = currentFloor
         self.targetFloors = targetFloors
+        self.assignedCall = None  # (floor_number, direction) committed by the dispatcher, survives across steps
 
 class Floor:
     def __init__(self, number: int, waitingUp: bool, waitingDown: bool):
